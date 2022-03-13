@@ -1,3 +1,4 @@
+from collections import Counter
 import sys
 from nltk import sent_tokenize, ngrams
 
@@ -31,6 +32,21 @@ def main():
         print("------------------------------------------------------------------------------")
         for i in wiki_bigram:
             print(i, end='')
+        print("------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------")
+        print("------------------------------------------------------------------------------")
+        print("Most common unigrams for wiki:")
+        cnt_wiki = Counter(ngrams(wiki.split(), 1))
+        print(cnt_wiki.most_common(30))
+        print("Most common bigrams for wiki:")
+        cnt_wiki = Counter(ngrams(wiki.split(), 2))
+        print(cnt_wiki.most_common(30))
+        print("Most common unigrams for reviews:")
+        cnt_rev = Counter(ngrams(review.split(), 1))
+        print(cnt_rev.most_common(30))
+        print("Most common bigrams for reviews:")
+        cnt_rev = Counter(ngrams(review.split(), 2))
+        print(cnt_rev.most_common(30))
         quit()
 
 
