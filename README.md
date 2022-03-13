@@ -1,1 +1,2 @@
 # nlp-homework1
+The data selection I chose to use is the plain text for lord of the ring's description on its wikipedia page and compare it to 7 reviews I found online from https://www.goodreads.com/book/show/33.The_Lord_of_the_Rings and here https://www.google.com/search?client=firefox-b-1-d&q=lord+of+the+rings+book+review.
