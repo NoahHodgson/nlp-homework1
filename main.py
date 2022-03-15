@@ -13,14 +13,8 @@ def process_unigrams_prob(sent: str, corp:Counter) -> int:
     print(val)
     return val
 
-#uses add 1 smoothing
-def proccess_bigram_prob(sent: str, corp:Counter) -> int:
-    val = 1   
-    biwords = ngrams(sent.split(), 2)
-    for biword in biwords:
-        val += corp[biword]
-    print(val)
-    return val
+def calculate_prob() -> float:
+    
 
 def main():
         REVIEW_FILE = "LOTR_REVIEW.txt"
