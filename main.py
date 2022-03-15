@@ -4,6 +4,7 @@ import sys
 from nltk import sent_tokenize, ngrams
 
 #uses add 1 smoothing
+"""
 def process_unigrams_prob(sent: str, corp:Counter) -> int:
     val = 0
     sent = list(set(sent.split()))
@@ -12,9 +13,15 @@ def process_unigrams_prob(sent: str, corp:Counter) -> int:
         val += 1 + corp[word]
     print(val)
     return val
+"""
 
-def calculate_prob() -> float:
-    
+def calculate_prob(sentence:str, corp_uni:Counter, corp_bi:Counter, vocab: int) -> float:
+    prob = 1
+    bigrams = ngrams(sentence.split(), 2)
+    for bigram in bigrams:
+        prob *= (corp_bi[bigram]+1) / (corp_uni[bigram[0]] + vocab)
+    return prob
+
 
 def main():
         REVIEW_FILE = "LOTR_REVIEW.txt"
@@ -53,25 +60,26 @@ def main():
         cnt_wiki1 = Counter(ngrams(wiki.split(), 1))
         print(cnt_wiki1.most_common(30))
         print("Most common bigrams for wiki:")
-        cnt_wiki = Counter(ngrams(wiki.split(), 2))
-        print(cnt_wiki.most_common(30))
+        cnt_wiki2 = Counter(ngrams(wiki.split(), 2))
+        print(cnt_wiki2.most_common(30))
         print("Most common unigrams for reviews:")
         cnt_rev1 = Counter(ngrams(review.split(), 1))
         print(cnt_rev1.most_common(30))
         print("Most common bigrams for reviews:")
-        cnt_rev = Counter(ngrams(review.split(), 2))
-        print(cnt_rev.most_common(30))
+        cnt_rev2 = Counter(ngrams(review.split(), 2))
+        print(cnt_rev2.most_common(30))
         print("------------------------------------------------------------------------------")
         print("------------------------------------------------------------------------------")
         print("------------------------------------------------------------------------------")
         #add one smoothing goes here 
-        random_rev_set = "To the tear-choked death of Boromir, to the triumph of Gondor, Lord of the Rings has never failed in overripe entertainment and overall attraction."
-        random_wiki_set = "There, Boromir tries to take the Ring from Frodo, but immediately regrets it after Frodo puts on the Ring and disappears."
+        random_rev_set = "Its indisputable greatness has made it indisputable."
+        random_wiki_set = "\"War of the Ring\" redirects here."
+        
         vocab_len = len(list(cnt_rev1)) + len(list(cnt_wiki1))
-        process_unigrams_prob(random_wiki_set, cnt_wiki1)
-        proccess_bigram_prob(random_wiki_set, cnt_wiki)
-        process_unigrams_prob(random_rev_set, cnt_rev1)
-        proccess_bigram_prob(random_rev_set, cnt_rev)
+        
+        print(calculate_prob(random_rev_set, cnt_rev1, cnt_rev2, vocab_len))
+        print(calculate_prob(random_wiki_set, cnt_wiki1, cnt_wiki2, vocab_len))
+
         print(vocab_len)
         quit()
 
