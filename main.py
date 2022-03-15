@@ -4,17 +4,6 @@ import sys
 from nltk import sent_tokenize, ngrams
 
 #uses add 1 smoothing
-"""
-def process_unigrams_prob(sent: str, corp:Counter) -> int:
-    val = 0
-    sent = list(set(sent.split()))
-    words = ngrams(sent, 1)
-    for word in words:
-        val += 1 + corp[word]
-    print(val)
-    return val
-"""
-
 def calculate_prob(sentence:str, corp_uni:Counter, corp_bi:Counter, vocab: int) -> float:
     prob = 1
     bigrams = ngrams(sentence.split(), 2)
